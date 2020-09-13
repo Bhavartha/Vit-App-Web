@@ -10,7 +10,6 @@
       </div>
       <div class="custom-file">
         <input
-          required
           type="file"
           class="custom-file-input"
           id="customFile"
@@ -37,21 +36,22 @@ export default {
     async onUpload() {
       try {
         //Upload file
-        await firebase
-          .storage()
-          .ref("posts/" + this.fileData.name)
-          .put(this.fileData);
+        if (this.fileData) {
+          await firebase
+            .storage()
+            .ref("posts/" + this.fileData.name)
+            .put(this.fileData);
 
-        //Get media URL
-        await firebase
-          .storage()
-          .ref("posts/" + this.fileData.name)
-          .getDownloadURL()
-          .then((url) => {
-            console.log(url);
-            this.mediaUrl = url;
-          });
-
+          //Get media URL
+          await firebase
+            .storage()
+            .ref("posts/" + this.fileData.name)
+            .getDownloadURL()
+            .then((url) => {
+              console.log(url);
+              this.mediaUrl = url;
+            });
+        }
         //Create entry in collection
         var doc = await firebase
           .firestore()
@@ -80,7 +80,6 @@ export default {
 
         alert("Upload Successful");
         this.$router.replace("/");
-        
       } catch {
         alert("Failed to Upload");
       }
