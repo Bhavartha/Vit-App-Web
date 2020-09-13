@@ -1,5 +1,5 @@
 <template>
-  <div class="container col-5">
+  <div class="container col-md-5">
     <form @submit.prevent="onSubmit">
       <h1>View Notes</h1>
       <div class="input-group mb-3">
@@ -7,7 +7,7 @@
           <label class="input-group-text" for="deptSelect">Department</label>
         </div>
 
-        <select class="custom-select" v-model="sDept" id="deptSelect">
+        <select class="custom-select" v-model="sDept" id="deptSelect" @change="sYear=null">
           <option v-for="(dept,index) in departments" :key="index">{{ dept }}</option>
         </select>
       </div>
