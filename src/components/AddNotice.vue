@@ -1,6 +1,6 @@
 <template>
-  <div id="addNotice" class="container col-5">
-    <form @submit.prevent="onUpload">
+  <div id="addNotice" class="col col-md-6 mb-5">
+    <form @submit.prevent="onUpload" class="m-3">
       <h1>Add Notice</h1>
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Notice" v-model="notice" required />
@@ -18,7 +18,7 @@
         />
         <label class="custom-file-label" for="customFile">{{fileName}}</label>
       </div>
-      <button class="btn btn-primary mt-2" type="submit">Upload</button>
+      <button class="btn btn-primary mt-4" type="submit">Upload</button>
     </form>
   </div>
 </template>

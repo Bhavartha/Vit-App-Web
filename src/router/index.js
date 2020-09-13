@@ -2,6 +2,7 @@ import Vue from 'vue'
 import firebase from 'firebase'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Notes from '../views/Notes.vue'
 import Login from '../views/Login.vue'
 import Admin from '../views/Admin.vue'
 
@@ -12,6 +13,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/notes',
+    name: 'Notes',
+    component: Notes
   },
   {
     path: '*',

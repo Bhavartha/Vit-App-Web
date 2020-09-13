@@ -1,7 +1,7 @@
 <template>
-  <div id="addNote" class="col col-md-6 mb-5">
-    <form @submit.prevent="onUpload" class="m-3">
-      <h1>Add Note</h1>
+  <div class="container col-5">
+    <form @submit.prevent="onSubmit">
+      <h1>View Notes</h1>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <label class="input-group-text" for="deptSelect">Department</label>
@@ -29,22 +29,13 @@
           <option v-for="(s,index) in subjects" :key="index">{{ s }}</option>
         </select>
       </div>
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="From" v-model="from" required />
-      </div>
-      <div class="custom-file">
-        <input
-          required
-          type="file"
-          class="custom-file-input"
-          id="customFile"
-          @change="fileChange"
-          accept="application/pdf"
-        />
-        <label class="custom-file-label" for="customFile">{{fileName}}</label>
-      </div>
-      <button class="btn btn-primary mt-4" type="submit">Upload</button>
+      <button class="btn btn-primary mt-2" type="submit">Get Notes</button>
     </form>
+    <hr class="m-5" />
+    <div v-for="note in notes" :key="note">
+      <h5 class="secondary">By {{note.from}}</h5>
+      <a class="form-control bg-light" :href="note.downloadUrl" target="_blank">{{note.fileName}}</a>
+    </div>
   </div>
 </template>
 <script>
@@ -83,28 +74,8 @@ export default {
       });
     },
 
-    //Initiated on change in file input ie file uploaded
-    fileChange(event) {
-      this.fileData = event.target.files[0];
-      this.fileName = this.fileData.name;
-    },
-    
-    async onUpload() {
+    async onSubmit() {
       try {
-        const storagePath =
-          this.sDept + "/" + this.sYear + "/" + this.fileData.name;
-        //Upload PDF
-        await firebase.storage().ref(storagePath).put(this.fileData);
-
-        //Get Media URL
-        await firebase
-          .storage()
-          .ref(storagePath)
-          .getDownloadURL()
-          .then((url) => {
-            this.downloadUrl = url;
-          });
-
         //Create entry in collection
         await firebase
           .firestore()
@@ -113,19 +84,15 @@ export default {
           .collection("Notes")
           .doc(this.sYear)
           .collection(this.sSubj)
-          .add({
-            from: this.from,
-            downloadUrl: this.downloadUrl,
-            dept: this.sDept,
-            subject: this.sSubj,
-            timestamp: new Date(),
-            fileName: this.fileName,
-            year: this.sYear,
+          .orderBy("timestamp", "desc")
+          .get()
+          .then((querySnapshot) => {
+            this.notes = querySnapshot.docs.map((doc) => {
+              return doc.data();
+            });
           });
-        alert("Upload Successful");
-        this.$router.replace("/");
       } catch {
-        alert("Failed to Upload");
+        alert("Failed to Fetch Notes");
       }
     },
   },
@@ -133,18 +100,18 @@ export default {
     return {
       departments: [],
       subjects: [],
+      notes: [],
       years: ["First", "Second", "Third", "Fourth"],
       sDept: "",
       sYear: null,
       sSubj: "",
-      fileName: "Choose File",
-      from: "",
-      fileData: null,
-      downloadUrl: "",
     };
   },
 };
 </script>
 
-<style>
+<style scoped>
+.form-control{
+    text-decoration: none;
+}
 </style>
