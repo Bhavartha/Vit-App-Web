@@ -6,10 +6,13 @@
         <div class="input-group-prepend">
           <label class="input-group-text" for="deptSelect">Department</label>
         </div>
+
         <select class="custom-select" v-model="sDept" id="deptSelect">
           <option v-for="(dept,index) in departments" :key="index">{{ dept }}</option>
         </select>
       </div>
+      <!-- Checks is bool enableYear (eYear) is true -->
+      <!-- if true shows the dropdown -->
       <div v-if="eYear" class="input-group mb-3">
         <div class="input-group-prepend">
           <label class="input-group-text" for="yrSelect">Year</label>
@@ -57,14 +60,17 @@ export default {
     });
   },
   computed: {
+    // Return bool that decides to show Year dropdown or not
     eYear() {
       return this.sDept != "";
     },
+    // Returns bool that decides to show Subjects dropdown or not
     eSubj() {
       return this.sYear != null;
     },
   },
   methods: {
+    // Fetches subjects based on the Dept and Year selected and updates the value of Subject array
     async getSubjects() {
       var s = await firebase
         .firestore()
@@ -76,10 +82,13 @@ export default {
         return doc.id;
       });
     },
+
+    //Initiated on change in file input ie file uploaded
     fileChange(event) {
       this.fileData = event.target.files[0];
       this.fileName = this.fileData.name;
     },
+    
     async onUpload() {
       try {
         const storagePath =

@@ -1,6 +1,7 @@
 <template>
   <div id="timeline" class="container justify-content-center">
-    <div v-for="(post,index) in posts" :key="index">
+    <input type="text" v-model="search" placeholder="search Posts" class="form-control mb-4"/>
+    <div v-for="(post,index) in filteredPosts" :key="index">
       <div class="card mb-4">
         <div class="card-body">
           <h4 class="card-title">Notice by {{post.from}}</h4>
@@ -29,9 +30,19 @@ export default {
   data() {
     return {
       posts: [],
+      search:"",
     };
   },
-
+  computed: {
+    filteredPosts() {
+      return this.posts.filter((post) => {
+        return (
+          post.from.toLowerCase().match(this.search.toLowerCase()) ||
+          post.notice.toLowerCase().match(this.search.toLowerCase())
+        );
+      });
+    },
+  },
   created() {
     firebase
       .firestore()
