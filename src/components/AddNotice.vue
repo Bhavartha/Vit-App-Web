@@ -79,7 +79,8 @@ export default {
           });
 
         alert("Upload Successful");
-        this.$router.go(0);
+        this.$router.replace("/");
+        
       } catch {
         alert("Failed to Upload");
       }
