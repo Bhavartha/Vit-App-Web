@@ -6,8 +6,8 @@
         <div class="card-body">
           <div class="card-title container-fluid">
             <div class="row">
-              <div class="col">
-                <h5>By {{post.from}}</h5>
+              <div class="col not border-bottom block">
+                  Notice By <strong> {{post.from}} </strong>
               </div>
               <div v-if="loggedIn" class="col">
                 <button type="button" class="close" @click="rmPost(post.id)">
@@ -98,5 +98,15 @@ export default {
   position: relative;
   margin-top: 1rem;
   padding-bottom: 1rem;
+}
+a{
+  text-decoration: none;
+}
+a:hover{
+  color: #393185;
+}
+
+.not{
+  font-size: 17px;;
 }
 </style>

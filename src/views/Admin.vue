@@ -1,5 +1,5 @@
 <template>
-  <div class="row row-cols-1 row-cols-md-2 mx-auto">
+  <div class="row row-cols-1 row-cols-md-2 mx-auto justify-content-center">
     <add-notice />
     <add-note />
   </div>

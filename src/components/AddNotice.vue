@@ -1,7 +1,7 @@
 <template>
-  <div id="addNotice" class="col col-md-6 mb-5">
+  <div id="addNotice" class="col col-md-5 col-sm-10 mb-5">
     <form @submit.prevent="onUpload" class="m-3">
-      <h1>Add Notice</h1>
+      <h3 class="display-10 font-weight-reguler text-center">Add Notice</h3><br>
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Notice" v-model="notice" required />
       </div>
@@ -18,7 +18,11 @@
         />
         <label class="custom-file-label" for="customFile">{{fileName}}</label>
       </div>
-      <button class="btn btn-primary mt-4" type="submit">Upload</button>
+
+      <center>
+        <button class="btn mt-4 custom" type="submit">Upload</button>
+      </center>
+
     </form>
   </div>
 </template>
@@ -99,4 +103,13 @@ export default {
 </script>
 
 <style>
+h3{
+  color:#393185;
+}
+.custom{
+  width: 40%;
+}
+.custom:hover{
+  color: white;
+}
 </style>
