@@ -1,7 +1,7 @@
 <template>
   <div class="container col-md-5">
     <form @submit.prevent="onSubmit">
-      <h1>View Notes</h1>
+      <h4 class="display-5 font-weight-reguler text-center">View Notes</h4><br>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <label class="input-group-text" for="deptSelect">Department</label>
@@ -21,6 +21,7 @@
           <option v-for="(yr,index) in years" :key="index">{{ yr }}</option>
         </select>
       </div>
+      
       <div v-if="eSubj" class="input-group mb-3">
         <div class="input-group-prepend">
           <label class="input-group-text" for="subjSelect">Subject</label>
@@ -29,11 +30,14 @@
           <option v-for="(s,index) in subjects" :key="index">{{ s }}</option>
         </select>
       </div>
-      <button class="btn btn-primary mt-2" type="submit">Get Notes</button>
+        <center>
+          <button class="btn mt-3 custom" type="submit">Get Notes</button>
+        </center>
+
     </form>
     <hr class="m-5" />
-    <div v-for="note in notes" :key="note">
-      <h5 class="secondary">By {{note.from}}</h5>
+    <div v-for="note in notes" :key="note" class="m-3">
+      <h6 class="secondary">By {{note.from}}</h6>
       <a class="form-control bg-light" :href="note.downloadUrl" target="_blank">{{note.fileName}}</a>
     </div>
   </div>
@@ -111,7 +115,20 @@ export default {
 </script>
 
 <style scoped>
+button{
+  width: 40%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+}
+.container{
+  margin-top: 80px;
+}
+button:hover{
+  color: white;
+}
 .form-control{
     text-decoration: none;
+}
+h4{
+  color:#393185;
 }
 </style>
