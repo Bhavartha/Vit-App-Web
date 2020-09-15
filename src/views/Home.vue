@@ -1,20 +1,20 @@
 <template>
   <div id="timeline" class="container justify-content-center">
-    <input type="text" v-model="search" placeholder="search Posts" class="form-control mb-4" />
+    <input type="text" v-model="search" placeholder="Search Posts" class="form-control mb-4" />
     <div v-for="(post,index) in filteredPosts" :key="index">
       <div class="card mb-4">
         <div class="card-body">
           <div class="card-title container-fluid">
             <div class="row">
-              <div class="col not border-bottom block">
+              <div class="col-sm-6 col-10 not">
                   Notice By <strong> {{post.from}} </strong>
               </div>
               <div v-if="loggedIn" class="col">
                 <button type="button" class="close" @click="rmPost(post.id)">
-                  <span>&times;</span>
+                  <span class="cross">&times;</span>
                 </button>
               </div>
-            </div>
+            </div><hr class="line">
           </div>
           <div class="text-center">
             <img v-if="post.type=='image'" :src="post.mediaUrl" class="card-img img-fluid" />
@@ -105,8 +105,19 @@ a{
 a:hover{
   color: #393185;
 }
+.cross{
+  background-color: white;
+  color: black;
+}
 
 .not{
-  font-size: 17px;;
+  font-size: 16px;
+  margin-left: -15px;
+}
+hr.line{
+  border: 1px solid rgb(209, 209, 209);
+  margin-top: 10px;
+  margin-left: -35px;
+  width: 114%;
 }
 </style>
