@@ -10,6 +10,7 @@
       </div>
       <div class="custom-file">
         <input
+          required
           type="file"
           class="custom-file-input"
           id="customFile"
